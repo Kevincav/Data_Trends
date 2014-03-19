@@ -16,5 +16,5 @@ private:
     void calcCurve(std::vector<float>& x, std::vector<float>& y, int n);
     int error(std::pair<std::vector<float>,std::vector<float> >& input, int k);
 };
-
+ 
 #endif
