@@ -4,7 +4,7 @@ Graphs::Graphs(std::pair<std::vector<float>,std::vector<float> > coords) {
     if (coords.first.size() != coords.second.size())
         throw "BAD";
     
-    int n = error(coords, 4);
+    int n = error(coords, 5);
     calcCurve(coords.first, coords.second, n);
 }
 float Graphs::calcSalery (float years) {
@@ -33,10 +33,9 @@ void Graphs::calcCurve(std::vector<float>& x, std::vector<float>& y, int n) {
         W.push_back(final(i));
 }
 int Graphs::error(std::pair<std::vector<float>,std::vector<float> >& input, int k) {
-    const int size   = (int) input.first.size();
-    float error      = 0.f;
-    float firstError = 0.f;
-    int min          = 1;
+    const int size = (int) input.first.size();
+    float error    = 0.f;
+    int min        = 1;
     
     for (int n=1; ;++n) {
         float currError = 0.f;
@@ -62,8 +61,8 @@ int Graphs::error(std::pair<std::vector<float>,std::vector<float> >& input, int 
         
         const float tmp = currError / (float) k;
         if (n == 1)
-            error = firstError = tmp;
-        else if (tmp > firstError)
+            error = tmp;
+        else if (tmp > error)
             break;
         else if (tmp < error) {
             error = tmp;
