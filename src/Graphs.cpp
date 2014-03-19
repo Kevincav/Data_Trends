@@ -1,16 +1,13 @@
 #include "Graphs.hpp"
 
-Graphs::Graphs(std::pair<std::vector<float>,std::vector<float> >& coords) {
+Graphs::Graphs(std::pair<std::vector<float>,std::vector<float> > coords) {
     if (coords.first.size() != coords.second.size())
         throw "BAD";
     
     calcCurve(coords.first, coords.second);
 }
-~Graphs::Graphs() {
-    
-}
 float Graphs::calcSalery (float years) {
-    float value = W[i];
+    float value = W[0];
     for (int i=1;i<W.size();++i)
         value += W[i] * std::pow(years, i);
     return value;
@@ -18,14 +15,17 @@ float Graphs::calcSalery (float years) {
 void Graphs::calcCurve(std::vector<float>& x, std::vector<float>& y) {
     int n = 4;
 
-    Eigen::matrixXd matrixX(x.size(), x[0].size(), CV_32F);
-    Eigen::matrixXd matrixY(y.size(), 1, CV_32F);
-    
+    Eigen::MatrixXd matrixX(x.size(), n);
+    Eigen::MatrixXd matrixY(y.size(), 1);
+
     for (int i=0;i<x.size();++i) {
-        matrixY.at<float>(i) = y[i];
+        matrixY(i) = y[i];
         for (int j=0;j<n;++j)
-            matrixX.at<float>(i,j) = std::pow(x[i], j);
+            matrixX(i,j) = std::pow(x[i], j);
     }
+    Eigen::MatrixXd inverse = matrixX.transpose() * matrixX;
+    Eigen::MatrixXd final   = inverse.inverse() * matrixX.transpose() * matrixY;
     
-    // TODO inv(X' * X) * X' * Y
+    for (int i=0;i<n;++i)
+        W.push_back(final(i));
 }

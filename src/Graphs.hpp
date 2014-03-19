@@ -9,8 +9,7 @@
 
 class Graphs {
 public:
-    Graphs(std::pair<std::vector<float>,std::vector<float> >& coords);
-    ~Graphs();
+    Graphs(std::pair<std::vector<float>,std::vector<float> > coords);
     float calcSalery (float years);
 private:
     std::vector<float> W;

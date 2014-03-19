@@ -11,7 +11,6 @@
 class Parser {
 public:
     Parser(std::string filename);
-    ~Parser();
     std::pair<std::vector<float>, std::vector<float> > getMatrix() { return std::make_pair(matrixX, matrixY); }
 private:
     std::vector<float> matrixX, matrixY;
